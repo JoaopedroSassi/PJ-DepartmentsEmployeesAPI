@@ -2,7 +2,7 @@
 
 namespace DepartmentsCompanies.Controllers
 {
-    public class CompanyController : Controller
+    public class EmployeeController : Controller
     {
         public IActionResult Index()
         {

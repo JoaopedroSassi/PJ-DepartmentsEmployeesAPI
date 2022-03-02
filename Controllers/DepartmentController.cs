@@ -1,5 +1,7 @@
-﻿using DepartmentsCompanies.Models;
+﻿using DepartmentsCompanies.Data;
+using DepartmentsCompanies.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,15 +11,16 @@ namespace DepartmentsCompanies.Controllers
     [Route("departments")]
     public class DepartmentController : ControllerBase
     {
-        private readonly DataContext _context;
-        public DepartmentController([FromServices] DataContext context)
+        private readonly AppDbContext _context;
+
+        public DepartmentController([FromServices] AppDbContext context)
             => _context = context;
 
         [Route("")]
         [HttpGet]
         public async Task<ActionResult<List<Department>>> GetAsync()
         {
-            
+            return Ok(await _context.Departments.AsNoTracking().ToListAsync());
         }
         
     }

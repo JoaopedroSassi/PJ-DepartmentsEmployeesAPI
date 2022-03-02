@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DepartmentsCompanies.Models
 {
     public class Department
     {
-        [Key()]
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "This field is required!")]
