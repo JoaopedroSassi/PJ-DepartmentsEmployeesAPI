@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DepartmentsCompanies.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DepartmentsCompanies.Controllers
 {
-    public class DepartmentController : Controller
+    [ApiController]
+    [Route("departments")]
+    public class DepartmentController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly DataContext _context;
+        public DepartmentController([FromServices] DataContext context)
+            => _context = context;
+
+        [Route("")]
+        [HttpGet]
+        public async Task<ActionResult<List<Department>>> GetAsync()
         {
-            return View();
+            
         }
+        
     }
 }
