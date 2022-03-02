@@ -77,7 +77,7 @@ namespace DepartmentsCompanies.Controllers
             {
                 _context.Departments.Remove(department);
                 await _context.SaveChangesAsync();
-                return Ok(new { message = "Department successfully removed ieee" });
+                return Ok(new { message = "Department successfully removed" });
             }
             catch (DbUpdateConcurrencyException)
             {
