@@ -42,12 +42,9 @@ namespace DepartmentsCompanies.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]
-        public async Task<ActionResult<Employee>> Put([FromBody] Employee model, int id)
+        [Route("")]
+        public async Task<ActionResult<Employee>> Put([FromBody] Employee model)
         {
-            if (model.Id != id)
-                return BadRequest(ModelState);
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
