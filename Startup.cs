@@ -39,7 +39,10 @@ namespace DepartmentsCompanies
 
             app.UseAuthorization();
 
-            app.UseCors(option => option.AllowAnyOrigin());
+            app.UseCors(option => option
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
