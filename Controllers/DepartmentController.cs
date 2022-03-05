@@ -19,17 +19,13 @@ namespace DepartmentsCompanies.Controllers
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Department>>> Get()
-        {
-            return Ok(await _context.Departments.AsNoTracking().ToListAsync());
-        }
-
+            => Ok(await _context.Departments.AsNoTracking().ToListAsync());
+   
         [HttpGet]
         [Route("{id:int}")]
         public async Task<ActionResult<Department>> GetById(int id)
-        {
-            return Ok(await _context.Departments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id));
-        }
-
+            => Ok(await _context.Departments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id));
+        
         [HttpPost]
         [Route("")]
         public async Task<ActionResult<Department>> Post([FromBody] Department model)
