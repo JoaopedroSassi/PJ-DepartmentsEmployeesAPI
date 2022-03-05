@@ -2,7 +2,6 @@
 using DepartmentsCompanies.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +15,11 @@ namespace DepartmentsCompanies.Controllers
         private readonly AppDbContext _context;
         public EmployeeController([FromServices] AppDbContext context)
             => _context = context;
+
+        [HttpGet]
+        [Route("")]
+        public async Task<ActionResult<List<Employee>>> Get()
+            => await _context.Employees.AsNoTracking().ToListAsync();  
 
         [HttpGet]
         [Route("{departmentId:int}")]
@@ -35,6 +39,11 @@ namespace DepartmentsCompanies.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            Department department = await _context.Departments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == model.DepartmentId);
+
+            if (department is null)
+                return BadRequest(new {message = "Department not found"});
 
             _context.Employees.Add(model);
             await _context.SaveChangesAsync();
