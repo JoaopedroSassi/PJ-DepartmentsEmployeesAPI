@@ -12,6 +12,7 @@ namespace DepartmentsCompanies.Controllers
     public class FileUploadController : ControllerBase
     {
         public static IWebHostEnvironment _webHostEnvironment;
+        public int EmployeeId { get; set; }
 
         public FileUploadController(IWebHostEnvironment webHostEnvironment)
         {
@@ -19,9 +20,10 @@ namespace DepartmentsCompanies.Controllers
         }
 
         [HttpPost]
-        [Route("")]
-        public string Post([FromForm] FileUpload file)
+        [Route("{id:int}")]
+        public string Post([FromForm] FileUpload file, int id)
         {
+            EmployeeId = id;
             try
             {
                 if (file.files.Length <= 0)
