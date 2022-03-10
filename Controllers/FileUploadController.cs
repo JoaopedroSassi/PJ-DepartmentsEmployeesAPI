@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
+using System.Web;
 
 namespace DepartmentsCompanies.Controllers
 {
@@ -12,7 +13,6 @@ namespace DepartmentsCompanies.Controllers
     public class FileUploadController : ControllerBase
     {
         public static IWebHostEnvironment _webHostEnvironment;
-        public int EmployeeId { get; set; }
 
         public FileUploadController(IWebHostEnvironment webHostEnvironment)
         {
@@ -20,10 +20,8 @@ namespace DepartmentsCompanies.Controllers
         }
 
         [HttpPost]
-        [Route("{id:int}")]
-        public string Post([FromForm] FileUpload file, int id)
+        public string Post([FromForm] FileUpload file)
         {
-            EmployeeId = id;
             try
             {
                 if (file.files.Length <= 0)
@@ -34,16 +32,14 @@ namespace DepartmentsCompanies.Controllers
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                using (FileStream fileStream = System.IO.File.Create(path + file.files.FileName))
-                {
-                    file.files.CopyTo(fileStream);
-                    fileStream.Flush();
-                    return "Uploaded";
-                }
+                using FileStream fileStream = System.IO.File.Create(path + file.files.FileName);
+                file.files.CopyTo(fileStream);
+                fileStream.Flush();
+                return "Uploaded";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return ex.Message;
+                return "anonymous.png";
             }
         }
     }
