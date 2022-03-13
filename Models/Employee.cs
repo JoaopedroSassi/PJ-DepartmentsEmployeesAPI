@@ -12,9 +12,6 @@ namespace DepartmentsCompanies.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "This field is required!")]
-        public string Picture { get; set; }
-
-        [Required(ErrorMessage = "This field is required!")]
         [MaxLength(12, ErrorMessage = "This field has a maximum of 12 characters")]
         public string RG { get; set; }
 
